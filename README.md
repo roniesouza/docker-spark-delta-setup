@@ -119,3 +119,60 @@ O **Remote - Containers** permite trabalhar **diretamente dentro do container**:
 3. Pressione `F1` → **Remote-Containers: Attach to Running Container…**
 4. Escolha `spark-delta-container`.
 5. O VS Code estará conectado ao container; execute notebooks, scripts ou terminais Python com Spark e Delta prontos.
+
+## ⚠️ Compatibilidade de versões
+
+Um detalhe muitas vezes negligenciado, mas que pode causar **erros difíceis de diagnosticar**, é a compatibilidade entre as ferramentas.
+No ecossistema Spark + Delta Lake, as versões precisam estar alinhadas para que tudo funcione corretamente.
+
+No exemplo deste setup, usamos:
+
+* **Apache Spark:** 3.5.3
+* **Delta Lake (delta-spark):** 3.3.2
+
+Essa escolha não é aleatória: a compatibilidade entre **Spark 3.5.x** e **Delta Lake 3.3.x** é documentada oficialmente.
+Negligenciar esse cuidado pode gerar problemas como falhas ao inicializar sessões Spark, erros de schema ou até corromper tabelas Delta.
+
+### 🔗 Compatibilidade oficial (Delta Lake x Spark)
+
+| Delta Lake version | Apache Spark version  |
+| ------------------ | --------------------- |
+| 4.0.x              | 4.0.x                 |
+| 3.3.x              | 3.5.x                 |
+| 3.2.x              | 3.5.x                 |
+| 3.1.x              | 3.5.x                 |
+| 3.0.x              | 3.5.x                 |
+| 2.4.x              | 3.4.x                 |
+| 2.3.x              | 3.3.x                 |
+| 2.2.x              | 3.3.x                 |
+| 2.1.x              | 3.3.x                 |
+| 2.0.x              | 3.2.x                 |
+| 1.2.x              | 3.2.x                 |
+| 1.1.x              | 3.2.x                 |
+| 1.0.x              | 3.1.x                 |
+| 0.7.x / 0.8.x      | 3.0.x                 |
+| < 0.7.0            | 2.4.2 – 2.4.\<latest> |
+
+📖 Fonte: [Documentação oficial do Delta Lake](https://docs.delta.io/releases/#compatibility-with-apache-spark)
+
+---
+
+👉 **Case prático:**
+Quando montei o setup inicial, ignorei esse detalhe de compatibilidade e perdi horas tentando corrigir erros que não faziam sentido.
+Só depois de voltar à documentação oficial percebi que estava usando uma versão do Delta incompatível com o Spark — o que tornava o ambiente instável.
+
+Esse episódio reforçou ainda mais o aprendizado: **não existe atalho fora da documentação oficial**. Conferir tabelas de compatibilidade como essa deve ser sempre o primeiro passo antes de configurar qualquer ambiente.
+
+---
+
+## 💡 Aprendizado
+
+O grande aprendizado que fica é simples, mas essencial: **sempre focar na documentação oficial**.
+
+Negligenciar esse passo é uma falha grave — foi exatamente isso que aconteceu comigo.
+Os melhores sempre repetem essa lição, mas eu ignorei e acabei pagando o preço.
+
+O caminho mais rápido e seguro nunca é sair tentando milhares de soluções de vídeos, fóruns ou jogando perguntas no GPT sem critério.
+O verdadeiro atalho é **ler e entender a documentação oficial, direto de quem desenvolveu**.
+
+Quando não seguimos isso, caímos no imediatismo: testamos mil coisas sem compreender de fato, gastamos tempo demais procurando respostas rápidas e, no fim, a solução estava lá desde o início na documentação.
