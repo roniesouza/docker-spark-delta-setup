@@ -28,16 +28,25 @@ FROM bitnami/spark:3.5.3
 
 WORKDIR /home
 
-RUN pip install --no-cache-dir \
-    delta-spark==3.3.2 \
-    ipykernel
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    pip install --no-cache-dir delta-spark==3.3.2 ipykernel && \
+    rm -rf /var/lib/apt/lists/*
 ```
 
-**O que ele faz:**
+**O que ele faz agora, detalhado:**
 
-1. Baseia-se na imagem oficial do Spark com Java, Hadoop e Scala já instalados.
-2. Define `/home` como diretório de trabalho.
-3. Instala `delta-spark` e `ipykernel` para suportar Delta Lake e notebooks Python.
+1. **Imagem base:** Utiliza `bitnami/spark:3.5.3`, que já inclui Spark, Java, Hadoop e Scala.
+2. **Diretório de trabalho:** Define `/home` como diretório de trabalho dentro do container.
+3. **Usuário root:** Permite instalar pacotes do sistema.
+4. **Instalações adicionais:**
+
+   * `git`: para versionamento e clonagem de repositórios.
+   * `delta-spark==3.3.2`: para integração com Delta Lake no Spark.
+   * `ipykernel`: para executar notebooks Python dentro do container.
+5. **Limpeza:** Remove cache do `apt` para reduzir o tamanho final da imagem.
 
 ---
 
