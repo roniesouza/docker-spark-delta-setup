@@ -1,8 +1,11 @@
 # 🚀 Spark + Delta Lake com VS Code Remote
 
-Este setup fornece um **container Docker enxuto** para trabalhar com **Apache Spark 3.5.3** e **Delta Lake**, permitindo desenvolvimento remoto com **VS Code Remote - Containers**.
+Este setup fornece um **container Docker enxuto** para trabalhar com **Apache Spark 3.5.3** e **Delta Lake**, permitindo desenvolvimento remoto com **VS Code Remote - Containers**.  
+É ideal para estudos e também pode servir como base para ambientes Spark mais complexos, sem a necessidade de configurar Spark, Java ou Python manualmente.
 
-É ideal para estudos e serve como base para setups, sem precisar configurar Spark, Java ou Python manualmente.
+O volume mapeado garante que notebooks e dados persistam após reiniciar o container, e configurações adicionais do Spark (como memória ou número de cores) podem ser ajustadas via variáveis de ambiente no `docker run`.
+
+A imagem final possui aproximadamente **2.7 GB**, o que é considerado normal para ambientes Spark, já que inclui Spark, Hadoop, Java, Scala e dependências adicionais do Python. Esse tamanho está dentro da média (2–4 GB) encontrada em setups semelhantes. Para quem busca algo mais leve, seria necessário montar uma imagem baseada em versões “slim” do Python ou do OpenJDK e instalar o Spark manualmente, mas isso aumenta a complexidade do setup.
 
 ---
 
@@ -116,11 +119,3 @@ O **Remote - Containers** permite trabalhar **diretamente dentro do container**:
 3. Pressione `F1` → **Remote-Containers: Attach to Running Container…**
 4. Escolha `spark-delta-container`.
 5. O VS Code estará conectado ao container; execute notebooks, scripts ou terminais Python com Spark e Delta prontos.
-
----
-
-## ⚠️ Observações
-
-* Este setup é **inicial e enxuto**, servindo como base para ambientes Spark.
-* O volume mapeado garante que notebooks e dados persistam após reiniciar o container.
-* Configurações adicionais do Spark (memória, cores, etc.) podem ser ajustadas via variáveis de ambiente no `docker run`.
