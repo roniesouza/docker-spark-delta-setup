@@ -71,7 +71,6 @@ docker build -t spark-delta-jupyter .
 
 ```bash
 docker run -d \
-  -u 0 \
   -v $(pwd):/home \
   --name spark-delta-container \
   spark-delta-jupyter
@@ -80,7 +79,6 @@ docker run -d \
 **Explicação dos parâmetros:**
 
 * `-d` → roda o container em **modo detach** (em segundo plano).
-* `-u 0` → executa como **root** dentro do container (evita problemas de permissão).
 * `-v $(pwd):/home` → mapeia o diretório local para `/home` do container.
 * `--name spark-delta-container` → nome do container, facilitando operações futuras.
 * `spark-delta-jupyter` → nome da imagem construída.
